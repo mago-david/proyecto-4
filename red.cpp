@@ -5,7 +5,15 @@
 
 red::red() {
 }
-    void red::agregarrouter(const string& nombre){
+    string red::mayusculas(const string& texto) const{
+    string resultado=texto;
+    for(unsigned int i=0;i<resultado.size();i++){
+        resultado[i]=toupper((unsigned char)resultado[i]);
+    }
+    return resultado;
+}
+    void red::agregarrouter(const string& entrada){
+         string nombre=mayusculas(entrada);
         if(routers.find(nombre)!=routers.end()){
             cout<<"El router "<<nombre<<" ya existe"<<endl;
             return;
@@ -13,7 +21,8 @@ red::red() {
         routers[nombre]=router(nombre);
         actualizartablascostos();
     }
-    void red::eliminarrouter(const string& nombre){
+    void red::eliminarrouter(const string& entrada){
+         string nombre=mayusculas(entrada);
         if(routers.find(nombre)==routers.end()){
             cout<<"El router "<<nombre<<" no existe"<<endl;
             return;
@@ -25,7 +34,9 @@ red::red() {
         routers.erase(nombre);
         actualizartablascostos();
     }
-    void red::agregarenlace(const string& a, const string& b, int costo){
+    void red::agregarenlace(const string& entrada_a, const string& entrada_b, int costo){
+        string a=mayusculas(entrada_a);
+        string b=mayusculas(entrada_b);
         if(routers.find(a)==routers.end() || routers.find(b)==routers.end()){
             cout<<"Los dos routers deben existir"<<endl;
             return;
@@ -34,7 +45,9 @@ red::red() {
         routers[b].agregarvecino(a,costo);
         actualizartablascostos();
     }
-    void red::eliminarenlace(const string& a, const string& b){
+    void red::eliminarenlace(const string& entrada_a, const string& entrada_b){
+        string a=mayusculas(entrada_a);
+        string b=mayusculas(entrada_b);
         if(routers.find(a)==routers.end() || routers.find(b)==routers.end()){
             cout<<"Los dos routers deben existir"<<endl;
             return;
@@ -112,7 +125,9 @@ red::red() {
             it->second.actualizartabladecostos(dist);
         }
     }
-    list<string> red::encontrarcamino(const string& origen, const string& destino) const{
+    list<string> red::encontrarcamino(const string& entrada_origen, const string& entrada_destino) const{
+        string origen=mayusculas(entrada_origen);
+        string destino=mayusculas(entrada_destino);
         list<string> camino;
         if(routers.find(origen)==routers.end() || routers.find(destino)==routers.end()){
             return camino;

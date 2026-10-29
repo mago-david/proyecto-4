@@ -11,6 +11,7 @@ class red
 private:
     map<string,router>routers;
     void calcularcamino(const string& origen,map<string,int>& dist,map<string,string>& previo)const;
+    string mayusculas(const string& texto) const;
 public:
     red();
     void agregarrouter(const string& nombre);
